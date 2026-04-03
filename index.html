@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CR-Remover Clone</title>
+    <style>
+        /* মূল স্টাইল এবং ব্যাকগ্রাউন্ড */
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            padding: 20px;
+        }
+
+        /* লোগো স্টাইল */
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #43e9ff;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        /* মেইন হেডিং */
+        h1 {
+            font-size: 32px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        /* গ্রেডিয়েন্ট টেক্সট (Algorithms) */
+        .gradient-text {
+            background: linear-gradient(to right, #43e9ff, #a162f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+        }
+
+        p.description {
+            font-size: 14px;
+            color: #cccccc;
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+
+        /* আপলোড বক্স */
+        .upload-card {
+            background-color: #111111;
+            border: 1px solid #222222;
+            border-radius: 25px;
+            padding: 30px 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .drop-zone {
+            border: 2px dashed #333333;
+            border-radius: 15px;
+            padding: 40px 20px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: border 0.3s ease;
+        }
+
+        .drop-zone:hover {
+            border-color: #43e9ff;
+        }
+
+        /* হিডেন ফাইল ইনপুট */
+        #video-input {
+            display: none;
+        }
+
+        .drop-zone span {
+            color: #43e9ff;
+            text-decoration: underline;
+        }
+
+        .file-status {
+            font-size: 13px;
+            color: #888888;
+            margin-bottom: 20px;
+            word-break: break-all;
+        }
+
+        /* গ্রেডিয়েন্ট বাটন */
+        .btn-remove {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(90deg, #00d2ff 0%, #928dab 100%);
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .btn-remove:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo">CR-Remover</div>
+
+        <h1>Copyright Remover <span class="gradient-text">Algorithms</span> Instantly</h1>
+        
+        <p class="description">
+            Copyright Remover - Professional AI deep-clean technology. 
+            Upload your video below to simulate advanced content optimization.
+        </p>
+
+        <div class="upload-card">
+            <input type="file" id="video-input" accept="video/*">
+            
+            <div class="drop-zone" id="drop-zone">
+                <div style="font-size: 30px; margin-bottom: 10px;">📤</div>
+                Drag video or <span id="browse-text">Browse</span>
+            </div>
+            
+            <p class="file-status" id="file-status">No file selected</p>
+            
+            <button class="btn-remove" onclick="startProcess()">Remove Copyright</button>
+        </div>
+    </div>
+
+    <script>
+        const dropZone = document.getElementById('drop-zone');
+        const videoInput = document.getElementById('video-input');
+        const fileStatus = document.getElementById('file-status');
+
+        // ড্রপ জোনে ক্লিক করলে ফাইল ইনপুট ওপেন হবে
+        dropZone.addEventListener('click', () => {
+            videoInput.click();
+        });
+
+        // ফাইল সিলেক্ট করলে টেক্সট আপডেট হবে
+        videoInput.addEventListener('change', function() {
+            if (this.files && this.files) {
+                fileStatus.innerText = "Selected: " + this.files.name;
+                fileStatus.style.color = "#43e9ff";
+            }
+        });
+
+        // ড্র্যাগ এবং ড্রপ সাপোর্ট
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = "#43e9ff";
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.style.borderColor = "#333333";
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = "#333333";
+            const files = e.dataTransfer.files;
+            if (files.length > 0 && files.type.includes('video')) {
+                videoInput.files = files;
+                fileStatus.innerText = "Selected: " + files.name;
+                fileStatus.style.color = "#43e9ff";
+            } else {
+                alert("Please upload a valid video file.");
+            }
+        });
+
+        function startProcess() {
+            if (videoInput.files.length === 0) {
+                alert("Please select a video first!");
+            } else {
+                alert("Processing video: " + videoInput.files.name);
+                // এখানে আপনি আপনার ব্যাকএন্ড বা পরবর্তী ধাপের কোড যোগ করতে পারেন
+            }
+        }
+    </script>
+
+</body>
+</html>
